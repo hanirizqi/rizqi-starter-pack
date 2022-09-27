@@ -1,0 +1,18 @@
+$small: 300px;
+$medium: 900px;
+
+.vhd__datepicker__dummy-wrapper{
+    align-items: center;
+    border-bottom: 1px solid white !important;
+    border-top: none !important;
+}
+.vhd__datepicker__input{
+    @media screen and (min-width: $medium) {
+        font-size: 1rem !important;
+        line-height: 3.2rem !important;
+    }
+}
+
+.vhd__datepicker vhd__datepicker--open{
+    font-size: 14px !important;
+}

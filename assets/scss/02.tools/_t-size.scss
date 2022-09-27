@@ -1,0 +1,132 @@
+
+@mixin size(
+    $values, 
+    $separator:  '&--',
+    $vw: true,
+    $for: 'font-size',
+    $child: false,
+    $before-key: '',
+    $debug: $global-debug,
+    ){
+
+    @each $name, $value in $values {
+        $final-name: $name;
+        $final-before-key: $before-key;
+        $separator-final: #{$separator}#{$final-name};
+
+        
+        @if ($debug){
+            @debug $name;
+            @debug '-------------------';
+            @debug $child;
+        }
+        
+        @if ($name == 'regular' or $name == 'm'){
+            $final-name: '';
+            $final-before-key: '';
+            @if ($child == false){   
+                @if (type-of($value) == 'map'){
+                    @include desktop-mobile($for, $value, $vw);
+                } @else {
+                    @include for($for, $value: $value, $vw: $vw)
+                }
+            }
+        }
+        @if (str-index($separator, "$1")) {
+            $separator-final: str-replace($separator, "$1", #{$final-before-key}#{$final-name});
+        }
+        
+        @if ($debug){
+            @debug '---------------------------';
+            @debug 'for : #{$for}';
+            @debug '---------------------------';
+            @debug 'for : '+ type-of($value);
+        }
+        #{$separator-final} {
+            @if (type-of($value) == 'map'){
+                @include desktop-mobile($for, $value, $vw);
+            } @else {
+                @include for($for, $value: $value, $vw: $vw)
+            }
+            
+        }
+        
+
+    }
+}
+@mixin desktop-mobile($for, $value, $vw, $debug: $global-debug){
+    @each $key, $valueInner in $value{
+        @if ($debug){
+            @debug '---------------------------';
+            @debug 'key : #{$key}';
+            @debug '---------------------------';
+        }
+        @if ($key == 'mobile'){
+            @if ($debug){
+                @debug '---------------------------';
+                @debug 'inMobile';
+                @debug '---------------------------';
+            }
+            
+            @include respond-to(handhelds-medium-screens){
+                @if (type-of($value: $valueInner) == 'map'){
+                    @each $k, $v in ($valueInner){
+                        @if ($debug){
+                            @debug '---------------------------';
+                            @debug 'v : #{$v}';
+                            @debug '---------------------------';
+                        }
+                        #{$k}: get-vw($v, $vw, true);
+                    }
+                } @else {
+                    @include for($for, $value: $valueInner, $vw: $vw, $mobile: true)    
+                }
+                
+            }
+        } @else if($key == 'desktop'){
+            @if ($debug){
+                @debug '---------------------------';
+                @debug 'inDesktop';
+                @debug '---------------------------';
+            }
+            @if (type-of($value: $valueInner) == 'map'){
+                @each $k, $v in ($valueInner){
+                    #{$k}: get-vw($v, $vw, true);
+                }
+            } @else {
+                @include for($for, $value: $valueInner, $vw: $vw)
+            }
+            
+        } @else{
+            #{$key}: get-vw($valueInner, $vw);
+        } 
+    } 
+     
+
+}
+
+
+@mixin for(
+    $for: 'font-size',
+    $value: 16px,
+    $vw: true,
+    $mobile: false,
+){
+    @if ($for == 'font-size') {
+        font-size: get-vw($value, $vw, $mobile);
+    } @else if ($for == 'padding') {
+        padding: get-vw($value, $vw, $mobile);
+    } @else if ($for == 'padding-lr') {
+        padding: 0 get-vw($value, $vw, $mobile);
+    } @else if ($for == 'padding-tb') {
+        padding: get-vw($value, $vw, $mobile) 0;
+    } @else if ($for == 'margin') {
+        margin: get-vw($value, $vw, $mobile);
+    } @else if ($for == 'margin-lr') {
+        margin: 0 get-vw($value, $vw, $mobile);
+    } @else if ($for == 'margin-tb') {
+        margin: get-vw($value, $vw, $mobile) 0;
+    } @else if ($for == 'margin-b') {
+        margin-bottom: get-vw($value, $vw, $mobile);
+    }
+}

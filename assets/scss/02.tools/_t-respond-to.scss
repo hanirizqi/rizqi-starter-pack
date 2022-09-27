@@ -1,0 +1,73 @@
+
+$break-small-iphone-5: 320px;
+$break-small-iphone-6: 375px;
+
+$break-small: 420px;
+$break-large: 1023px;
+$break-hd: 1600px;
+$break-ultra-hd: 1920px;
+$break-ultra-hd-2: 2560px;
+
+@mixin respond-to($media) {
+    @if $media==handhelds {
+        @media only screen and (max-width: $break-small) {
+            @content;
+        }
+    }
+
+    @else if $media==handhelds-iphone-5 {
+        @media only screen and (max-width: $break-small-iphone-5) {
+            @content;
+        }
+    }
+
+    @else if $media==handhelds-iphone-6 {
+        @media only screen and (min-width: $break-small-iphone-5 + 1) and (max-width: $break-small-iphone-6) {
+            @content;
+        }
+    }
+
+    @else if $media==handhelds-medium-screens {
+        @media only screen and (max-width: $break-large) {
+            @content;
+        }
+    }
+
+    @else if $media==medium-screens {
+        @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) {
+            @content;
+        }
+    }
+
+    @else if $media==wide-screens {
+        @media only screen and (min-width: $break-large) and (max-width: $break-hd - 1) {
+            @content;
+        }
+    }
+
+    @else if $media==hd-screens {
+        @media only screen and (min-width: $break-hd) and (max-width: $break-ultra-hd - 1) {
+            @content;
+        }
+    }
+
+    @else if $media==ultra-hd-screens {
+        @media only screen and (min-width: $break-ultra-hd) and (max-width: $break-ultra-hd-2 - 1) {
+            @content;
+        }
+    }
+
+    @else if $media==very-ultra-hd-screens {
+        @media only screen and (min-width: $break-ultra-hd-2) {
+            @content;
+        }
+    }
+
+    @else if $media==landscape {
+        @media (min-width: 500px) and (max-width: 700px) and (orientation: landscape) {
+            @content;
+        }
+    }
+
+
+}

@@ -1,0 +1,15 @@
+@use 'sass:math';
+
+$vw-viewport: $global-viewport;
+$vw-viewport-mobile: $global-viewport-mobile;
+@function get-vw($size, $enable: true, $mobile: false) {
+    $final-vw-viewport: $vw-viewport;
+    @if $mobile {
+        $final-vw-viewport: $vw-viewport-mobile;
+    } 
+    @if $enable {
+        $vw-context: $final-vw-viewport * 0.01 * 1px;
+        @return math.div($size, $vw-context) * 1vw;
+    }
+    @return $size;
+}

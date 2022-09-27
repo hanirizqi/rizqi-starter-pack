@@ -1,0 +1,31 @@
+$medium: 768px;
+
+.swal2-shown {
+    padding-right: 0 !important;
+}
+
+.swal2-title {
+    padding: 0 !important;
+}
+
+.swal2-icon {
+    margin: 1em auto 0.6em !important;
+}
+
+.swal2-html-container {
+    margin: 0.5em 1.6em .3em !important;
+}
+
+.swal2-actions {
+    margin: 0 !important;
+}
+
+.swal2-popup {
+    @media screen and (max-width: $medium) {
+        width: 80% !important;
+        height: auto !important;
+        font-size: 2.5rem !important;
+        padding: 1.25rem !important;
+
+    }
+}
