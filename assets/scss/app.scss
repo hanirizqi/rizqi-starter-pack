@@ -7,9 +7,9 @@ html{
     font-size: get-vw(16px);
     scroll-behavior: smooth;
     // cursor:url("../../public/storage/pages/all/custom-cursor.png"), auto; 
-    // @screen md{
-    //     font-size: get-vw(16px, $mobile: true);
-    // }
+    @screen md{
+        font-size: get-vw(16px, $mobile: true);
+    }
     overflow-x: hidden;
 }
 
